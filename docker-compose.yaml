@@ -1,0 +1,5 @@
+version: '3'
+services:
+  service:
+    image: ${REGISTRY_URL}/${APP_NAME}:${APP_VERSION}
+    build: "./"
