@@ -1,6 +1,5 @@
 #!/bin/sh
 FROM golang:alpine
-MAINTAINER Selly Margaretha Sudiyandi <sellymargaretha41@gmail.com>
 RUN apk add --no-cache git
 ENV GO111MODULE=on CGO_ENABLED=0 GOOS=linux GOARCH=amd64
 
