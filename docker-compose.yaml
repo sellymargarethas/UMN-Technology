@@ -1,5 +1,29 @@
 version: '3'
 services:
-  service:
+  umn-technology:
+    container_name: umn-technology-${APP_VERSION}
     image: ${REGISTRY_URL}/${APP_NAME}:${APP_VERSION}
-    build: "./"
+    restart: unless-stopped
+    tty: true
+    environment:
+        TZ: "Asia/Jakarta"
+        DB_DRIVER: ${DB_DRIVER}
+        DB_NAME: ${DB_NAME}
+        DB_HOST: ${DB_HOST}
+        DB_PORT: ${DB_PORT}
+        DB_USER: ${DB_USER}
+        DB_PASS: ${DB_PASS}
+        SSL_MODE: ${SSL_MODE}
+        JWT_KEY: ${JWT_KEY}
+        E_KEY: ${E_KEY}
+    ports:
+        - "8088:${APP_PORT}"
+    networks:
+        - my_network
+    logging:
+        driver: "json-file"
+        options:
+            max-size: "200m"
+networks:
+  my_network:
+    external: true
