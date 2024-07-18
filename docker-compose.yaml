@@ -20,10 +20,18 @@ services:
         - "8088:${APP_PORT}"
     networks:
         - my_network
-    logging:
-        driver: "json-file"
-        options:
-            max-size: "200m"
+
+  postgres_container:
+    image: postgres:latest
+    environment:
+        POSTGRES_DB: ${DB_NAME}
+        POSTGRES_USER: ${DB_USER}
+        POSTGRES_PASSWORD: ${DB_PASS}
+    ports:
+        - "5432:5432"
+    networks:
+        - my_network
+
 networks:
   my_network:
     external: true
