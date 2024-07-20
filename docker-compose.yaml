@@ -1,37 +1,30 @@
 version: '3'
 services:
   umn-technology:
-    container_name: umn-technology-${APP_VERSION}
-    image: ${REGISTRY_URL}/${APP_NAME}:${APP_VERSION}
-    restart: unless-stopped
-    tty: true
+    container_name: umn_technology-1.0.0-snapshot
+    image: sellymargaretha/umn-technology:latest
     environment:
-        TZ: "Asia/Jakarta"
-        DB_DRIVER: ${DB_DRIVER}
-        DB_NAME: ${DB_NAME}
-        DB_HOST: ${DB_HOST}
-        DB_PORT: ${DB_PORT}
-        DB_USER: ${DB_USER}
-        DB_PASS: ${DB_PASS}
-        SSL_MODE: ${SSL_MODE}
-        JWT_KEY: ${JWT_KEY}
-        E_KEY: ${E_KEY}
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: umntechnology
+      DB_USER: postgres
+      DB_PASS: admin
     ports:
-        - "8088:${APP_PORT}"
+      - "8088:8088"
     networks:
-        - my_network
+      - umn-technology-network
 
-  postgres_container:
+  postgres:
     image: postgres:latest
     environment:
-        POSTGRES_DB: ${DB_NAME}
-        POSTGRES_USER: ${DB_USER}
-        POSTGRES_PASSWORD: ${DB_PASS}
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: umntechnology
     ports:
-        - "5432:5432"
+      - "5433:5432"
     networks:
-        - my_network
+      - umn-technology-network
 
 networks:
-  my_network:
+  umn-technology-network:
     external: true
